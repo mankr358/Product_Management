@@ -95,6 +95,8 @@ public class ProductController {
 
         ProductResponse productResponse=null;
         try {
+            String name = null;
+            name.toUpperCase();
           productResponse = productService.getProductsWithPagination(pageNo,pageSize,sortBy,sortDir);
           if(ObjectUtils.isEmpty(productResponse)){
               return new ResponseEntity<>(HttpStatus.NO_CONTENT);

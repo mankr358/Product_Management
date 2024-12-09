@@ -10,5 +10,4 @@ public class ProductManagmentSystemApplication {
 	{
 		SpringApplication.run(ProductManagmentSystemApplication.class, args);
 	}
-
 }
