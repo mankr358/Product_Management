@@ -5,22 +5,22 @@ import jakarta.validation.constraints.*;
 public class ProductDto {
     private Integer id;
 
-    @NotBlank
+  //  @NotBlank
     private String name;
 
-    @NotEmpty
-    @Size(min = 3, max = 10, message = "Description size must be between 3 and 10 characters")
+//    @NotEmpty
+//    @Size(min = 3, max = 10, message = "Description size must be between 3 and 10 characters")
     private String description;
 
-    @NotNull(message = "Price cannot be null")
-    @Digits(integer = 10, fraction = 2, message = "Invalid price format (up to 10 digits with 2 decimal places)")
+//    @NotNull(message = "Price cannot be null")
+//    @Digits(integer = 10, fraction = 2, message = "Invalid price format (up to 10 digits with 2 decimal places)")
     private Double price;
 
-    @NotNull(message = "Quantity cannot be null")
-    @Min(value = 1, message = "Quantity must be at least 1")
+//    @NotNull(message = "Quantity cannot be null")
+//    @Min(value = 1, message = "Quantity must be at least 1")
     private Integer quantity;
 
-    @Email(message = "Invalid email format")
+  //  @Email(message = "Invalid email format")
     private String email;
 
     // Getters and Setters

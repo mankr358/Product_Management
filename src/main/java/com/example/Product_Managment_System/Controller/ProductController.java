@@ -4,6 +4,7 @@ import com.example.Product_Managment_System.DTO.ProductDto;
 import com.example.Product_Managment_System.DTO.ProductResponse;
 import com.example.Product_Managment_System.Service.ProductService;
 import jakarta.validation.Valid;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,16 +26,46 @@ public class ProductController {
      * @return ResponseEntity indicating success or failure.
      */
     @PostMapping("/save-Product")
-    public ResponseEntity<?> saveProduct(@RequestBody @Valid ProductDto productDto) {
+    public ResponseEntity<?> saveProduct(@RequestBody  ProductDto productDto) {
+
+
         try {
+            validationProduct(productDto);
             Boolean saveProduct = productService.saveProduct(productDto);
             if (!saveProduct) {
                 return new ResponseEntity<>("Product not saved", HttpStatus.INTERNAL_SERVER_ERROR);
             }
-        } catch (Exception e) {
+        }catch (BadRequestException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
+        catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>("Saved successfully", HttpStatus.CREATED);
+    }
+
+    private void validationProduct(ProductDto productDto) throws BadRequestException {
+        if (productDto.getName()!= null&& productDto.getName().isEmpty())
+        {
+            throw new BadRequestException(" name field is Empty");
+        }
+        if (productDto.getName() == null){
+            throw new BadRequestException("name field is empty");
+        }
+
+        if (productDto.getDescription()!= null&& productDto.getDescription().isEmpty())
+        {
+            throw new BadRequestException(" description field is Empty");
+        }
+        if (productDto.getDescription() == null){
+            throw new BadRequestException("description field is empty");
+        }
+
+        if (productDto.getDescription()!= null&& productDto.getDescription().isEmpty() && productDto.getDescription().length()<3 || productDto.getDescription().length()<=30)
+        {
+            throw new BadRequestException(" description is in 3 to 30 words");
+        }
     }
 
     /**
