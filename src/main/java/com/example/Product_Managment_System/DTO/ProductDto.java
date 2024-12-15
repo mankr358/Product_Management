@@ -1,13 +1,29 @@
 package com.example.Product_Managment_System.DTO;
 
-
+import jakarta.validation.constraints.*;
 
 public class ProductDto {
     private Integer id;
 
-    private  String name;
+    @NotBlank
+    private String name;
 
+    @NotEmpty
+    @Size(min = 3, max = 10, message = "Description size must be between 3 and 10 characters")
     private String description;
+
+    @NotNull(message = "Price cannot be null")
+    @Digits(integer = 10, fraction = 2, message = "Invalid price format (up to 10 digits with 2 decimal places)")
+    private Double price;
+
+    @NotNull(message = "Quantity cannot be null")
+    @Min(value = 1, message = "Quantity must be at least 1")
+    private Integer quantity;
+
+    @Email(message = "Invalid email format")
+    private String email;
+
+    // Getters and Setters
 
     public Integer getId() {
         return id;
@@ -49,7 +65,11 @@ public class ProductDto {
         this.quantity = quantity;
     }
 
-    private  Double price;
+    public String getEmail() {
+        return email;
+    }
 
-    private  Integer quantity;
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

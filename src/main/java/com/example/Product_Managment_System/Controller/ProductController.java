@@ -3,6 +3,7 @@ package com.example.Product_Managment_System.Controller;
 import com.example.Product_Managment_System.DTO.ProductDto;
 import com.example.Product_Managment_System.DTO.ProductResponse;
 import com.example.Product_Managment_System.Service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class ProductController {
      * @return ResponseEntity indicating success or failure.
      */
     @PostMapping("/save-Product")
-    public ResponseEntity<?> saveProduct(@RequestBody ProductDto productDto) {
+    public ResponseEntity<?> saveProduct(@RequestBody @Valid ProductDto productDto) {
         try {
             Boolean saveProduct = productService.saveProduct(productDto);
             if (!saveProduct) {
